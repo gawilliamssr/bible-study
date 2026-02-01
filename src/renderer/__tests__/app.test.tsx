@@ -27,5 +27,11 @@ describe("App navigation", () => {
     expect(
       screen.getByText("Stay on track with structured daily readings.")
     ).toBeInTheDocument();
+
+    await user.click(screen.getByRole("button", { name: "Journal" }));
+    expect(screen.getByRole("heading", { name: "Journal" })).toBeInTheDocument();
+    expect(
+      screen.getByText("Reflect on scripture, prayers, and study moments.")
+    ).toBeInTheDocument();
   });
 });

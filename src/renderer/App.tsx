@@ -3,11 +3,11 @@ import BibleReader from "./components/BibleReader";
 import NoteEditor from "./components/NoteEditor";
 import SermonPlayer from "./components/SermonPlayer";
 import ReadingPlan from "./components/ReadingPlan";
+import Journal from "./components/Journal";
+import Sidebar, { NavView } from "./components/Sidebar";
 
 const App = () => {
-  const [activeView, setActiveView] = useState<
-    "bible" | "notes" | "sermons" | "plans"
-  >("bible");
+  const [activeView, setActiveView] = useState<NavView>("bible");
 
   const renderContent = () => {
     if (activeView === "notes") {
@@ -22,44 +22,16 @@ const App = () => {
       return <ReadingPlan />;
     }
 
+    if (activeView === "journal") {
+      return <Journal />;
+    }
+
     return <BibleReader />;
   };
 
   return (
     <div className="app-shell">
-      <aside className="app-sidebar">
-        <h1 className="app-title">Bible Study</h1>
-        <nav className="app-nav">
-          <button
-            type="button"
-            className={activeView === "bible" ? "is-active" : ""}
-            onClick={() => setActiveView("bible")}
-          >
-            Bible
-          </button>
-          <button
-            type="button"
-            className={activeView === "notes" ? "is-active" : ""}
-            onClick={() => setActiveView("notes")}
-          >
-            Notes
-          </button>
-          <button
-            type="button"
-            className={activeView === "sermons" ? "is-active" : ""}
-            onClick={() => setActiveView("sermons")}
-          >
-            Sermons
-          </button>
-          <button
-            type="button"
-            className={activeView === "plans" ? "is-active" : ""}
-            onClick={() => setActiveView("plans")}
-          >
-            Plans
-          </button>
-        </nav>
-      </aside>
+      <Sidebar activeView={activeView} onSelectView={setActiveView} />
       <main className="app-main">
         <header className="app-header">
           <h2>
@@ -67,6 +39,7 @@ const App = () => {
             {activeView === "notes" && "Notes"}
             {activeView === "sermons" && "Sermons"}
             {activeView === "plans" && "Plans"}
+            {activeView === "journal" && "Journal"}
           </h2>
         </header>
         <section className="app-content">{renderContent()}</section>
