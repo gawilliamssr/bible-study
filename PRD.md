@@ -101,6 +101,7 @@ Create an advanced, offline-first Bible study application that bridges the gap b
   - From Bible passage → see related sermons
   - From sermon → jump to referenced verses
 - Batch link sermons to multiple passages
+- Pin scripture references to a sermon to compile a quick-reference list
 
 #### 3.3 Timestamped Notes & Study
 - Embedded YouTube player within the app
@@ -119,6 +120,11 @@ Create an advanced, offline-first Bible study application that bridges the gap b
 - Create video bookmarks for key moments
 - Repeat sections for deeper study
 - Picture-in-picture mode while browsing Bible passages
+
+#### 3.5 Pinned Scripture Board
+- Quick-tag book/chapter/verse references while watching a sermon
+- Show compiled scripture list in the sermon workspace
+- Allow removing or reordering pinned passages
 
 ### 4. Study Plans & Devotionals
 **Priority: P1 (Should Have)**
@@ -214,6 +220,7 @@ Create an advanced, offline-first Bible study application that bridges the gap b
   collections: string[],
   tags: string[],
   linked_passages: string[], // e.g., ["Romans 8:28", "Philippians 4:13"]
+  pinned_passages: string[], // quick-reference scripture list
   added_at: timestamp,
   notes: TimestampNote[]
 }
