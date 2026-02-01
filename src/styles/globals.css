@@ -406,6 +406,205 @@ body {
   font-size: 14px;
 }
 
+.sermons-panel__pin-board {
+  display: grid;
+  gap: 16px;
+  border: 1px solid #2f2f3d;
+  border-radius: 12px;
+  padding: 16px;
+  background: rgba(27, 27, 36, 0.55);
+}
+
+.sermons-panel__pin-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+}
+
+.sermons-panel__pin-header h4 {
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.sermons-panel__pin-header p {
+  color: #c9c3b5;
+  font-size: 14px;
+}
+
+.sermons-panel__pin-actions button {
+  background: transparent;
+  border: 1px solid #e6c78a;
+  color: #f5f1e8;
+  padding: 6px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.sermons-panel__pin-actions button:hover,
+.sermons-panel__pin-actions button:focus-visible {
+  background: #e6c78a;
+  color: #17171d;
+}
+
+.sermons-panel__pin-form {
+  display: grid;
+  gap: 12px;
+}
+
+.sermons-panel__pin-input {
+  display: grid;
+  gap: 6px;
+}
+
+.sermons-panel__pin-input label {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #c7c0b3;
+}
+
+.sermons-panel__pin-input input {
+  background: #1b1b24;
+  border: 1px solid #2f2f3d;
+  border-radius: 10px;
+  color: #f5f1e8;
+  padding: 10px 12px;
+  font-family: inherit;
+}
+
+.sermons-panel__pin-input input:focus-visible,
+.sermons-panel__pin-form button:focus-visible {
+  outline: 2px solid rgba(230, 199, 138, 0.5);
+  outline-offset: 2px;
+  border-color: #e6c78a;
+}
+
+.sermons-panel__pin-form button {
+  justify-self: start;
+  background: #e6c78a;
+  border: 1px solid transparent;
+  color: #17171d;
+  padding: 8px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.sermons-panel__pin-form button:hover {
+  filter: brightness(1.05);
+}
+
+.sermons-panel__pin-suggestions {
+  display: grid;
+  gap: 8px;
+  font-size: 13px;
+  color: #c9c3b5;
+}
+
+.sermons-panel__pin-suggestions span {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 11px;
+  color: #c7c0b3;
+}
+
+.sermons-panel__pin-suggestions div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.sermons-panel__pin-suggestions button {
+  background: transparent;
+  border: 1px solid #353546;
+  color: #f5f1e8;
+  padding: 6px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.sermons-panel__pin-suggestions button:hover,
+.sermons-panel__pin-suggestions button:focus-visible {
+  border-color: #e6c78a;
+  color: #e6c78a;
+}
+
+.sermons-panel__pin-list {
+  display: grid;
+  gap: 10px;
+}
+
+.sermons-panel__pin-card {
+  border: 1px solid #2f2f3d;
+  border-radius: 10px;
+  padding: 12px;
+  background: rgba(15, 15, 18, 0.6);
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.sermons-panel__pin-card h5 {
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.sermons-panel__pin-card p {
+  color: #c9c3b5;
+  font-size: 14px;
+}
+
+.sermons-panel__pin-meta {
+  display: grid;
+  gap: 8px;
+  justify-items: end;
+  font-size: 12px;
+  color: #b9b3a5;
+  white-space: nowrap;
+}
+
+.sermons-panel__pin-meta button {
+  background: transparent;
+  border: 1px solid #353546;
+  color: #f5f1e8;
+  padding: 4px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.sermons-panel__pin-meta button:hover,
+.sermons-panel__pin-meta button:focus-visible {
+  border-color: #e6c78a;
+  color: #e6c78a;
+}
+
+.sermons-panel__pin-empty {
+  font-style: italic;
+  color: #b9b3a5;
+}
+
+.sermons-panel__pin-compiled {
+  border-top: 1px solid #2f2f3d;
+  padding-top: 12px;
+  display: grid;
+  gap: 6px;
+}
+
+.sermons-panel__pin-compiled span {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 11px;
+  color: #c7c0b3;
+}
+
+.sermons-panel__pin-compiled p {
+  color: #f5f1e8;
+}
+
 .sermons-panel__recent h4 {
   font-size: 14px;
   text-transform: uppercase;
