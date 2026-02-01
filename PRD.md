@@ -147,6 +147,23 @@ Create an advanced, offline-first Bible study application that bridges the gap b
 - Share topical studies as export files
 - Templates for common study topics
 
+### 5. Study Collections & Scripture Compilation
+**Priority: P1 (Should Have)**
+
+#### 5.1 Study Collections
+- Create study collections for focused research (e.g., "Grace in Romans")
+- Add and reorder scripture references from any translation
+- Attach summary notes, key observations, and themes
+- Group collections by topic, book, or purpose (study vs. sermon prep)
+- Export compiled references as Markdown or PDF
+
+#### 5.2 Scripture Compilation Workflow
+- Pin verses directly from the Bible reader into an active study focus
+- Quick add input for verse references (book, chapter, verse range)
+- Auto-check for duplicate references
+- Display collected verses in a reading list
+- Link collection entries to notes, highlights, or sermons
+
 ---
 
 ## Technical Architecture
@@ -264,6 +281,19 @@ Create an advanced, offline-first Bible study application that bridges the gap b
 }
 ```
 
+#### Study Collection
+```typescript
+{
+  id: string,
+  name: string,
+  description: string,
+  passages: string[], // e.g., ["Romans 5:1-2", "Ephesians 2:8-9"]
+  tags: string[],
+  created_at: timestamp,
+  updated_at: timestamp
+}
+```
+
 ---
 
 ## User Interface Design
@@ -278,6 +308,7 @@ Create an advanced, offline-first Bible study application that bridges the gap b
 │  Sidebar   │  ┌─────────────────────────────────────────┐   │
 │            │  │ [Translation Picker] [Search] [Settings]│   │
 │  • Bible   │  ├─────────────────────────────────────────┤   │
+│  • Study   │  │                                         │   │
 │  • Notes   │  │                                         │   │
 │  • Sermons │  │  John 3:16 (NIV)                        │   │
 │  • Plans   │  │  For God so loved the world that he...  │   │
@@ -318,11 +349,12 @@ Create an advanced, offline-first Bible study application that bridges the gap b
 ### Key UI Components
 
 1. **Bible Reader**: Clean, readable text with verse numbers
-2. **Side Panel**: Navigation for different sections (Bible, Notes, Sermons, Plans)
+2. **Side Panel**: Navigation for different sections (Bible, Study, Notes, Sermons, Plans)
 3. **Quick Verse Jumper**: Type-ahead search for instant navigation (e.g., "John 3:16")
 4. **Sermon Browser**: Grid/list view of saved sermons with thumbnails
 5. **Note Editor**: Rich text editor with verse linking
 6. **Study Plan Dashboard**: Progress tracking and daily reading checklist
+7. **Study Collection Builder**: Compile, tag, and export scripture lists with Bible pinning
 
 ---
 
@@ -363,6 +395,15 @@ Create an advanced, offline-first Bible study application that bridges the gap b
 6. Marks day as complete
 7. App updates progress tracker (1/365 days complete)
 8. App sends desktop notification reminder for tomorrow's reading
+
+### Workflow 4: Building a Study Collection
+
+1. User opens the Study section from the sidebar
+2. Enters a study focus name (e.g., "Grace in Romans")
+3. Switches to the Bible reader and pins verses into the active focus
+4. Returns to the Study view to review the pinned list
+5. Adds summary notes or themes about the compiled passages
+6. Exports the study collection for sharing or printing
 
 ---
 
