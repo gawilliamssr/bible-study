@@ -13,6 +13,18 @@ type BibleData = {
 
 type BiblePayload = BibleData | BibleBook[];
 
+type PinnedVerse = {
+  id: string;
+  reference: string;
+  text: string;
+};
+
+type BibleReaderProps = {
+  focusLabel: string;
+  onPinVerse: (verse: PinnedVerse) => void;
+  pinnedVerseIds: Set<string>;
+};
+
 const normalizeBibleData = (payload: BiblePayload): BibleData => {
   if (Array.isArray(payload)) {
     return {
@@ -27,7 +39,11 @@ const normalizeBibleData = (payload: BiblePayload): BibleData => {
   };
 };
 
-const BibleReader = () => {
+const BibleReader = ({
+  focusLabel,
+  onPinVerse,
+  pinnedVerseIds
+}: BibleReaderProps) => {
   const [bible, setBible] = useState<BibleData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [selectedBookIndex, setSelectedBookIndex] = useState(0);
@@ -60,6 +76,7 @@ const BibleReader = () => {
   const currentChapter = currentBook?.chapters[selectedChapterIndex] ?? [];
   const verseCount = currentChapter.length;
   const translationLabel = bible?.translation ?? "KJV";
+  const hasFocus = focusLabel.trim().length > 0;
 
   useEffect(() => {
     setSelectedChapterIndex(0);
@@ -94,6 +111,17 @@ const BibleReader = () => {
 
   return (
     <article className="bible-reader">
+      <div className="bible-reader__study">
+        <div>
+          <span>Study Focus</span>
+          <p>
+            {hasFocus ? focusLabel : "Set a focus in the Study view to pin."}
+          </p>
+        </div>
+        <button type="button" disabled={!hasFocus}>
+          {hasFocus ? "Ready to Pin" : "Focus Required"}
+        </button>
+      </div>
       <div className="bible-reader__jump">
         <label htmlFor="quick-jump">Quick Jump</label>
         <input
@@ -174,17 +202,38 @@ const BibleReader = () => {
         {currentChapter.map((text, index) => {
           const verseNumber = index + 1;
           const isActive = verseNumber === selectedVerse;
+          const reference = `${currentBook?.name} ${
+            selectedChapterIndex + 1
+          }:${verseNumber}`;
+          const id = `${selectedBookIndex}-${selectedChapterIndex}-${verseNumber}`;
+          const isPinned = pinnedVerseIds.has(id);
           return (
-            <p
+            <div
               key={`verse-${selectedChapterIndex}-${verseNumber}`}
               id={`verse-${verseNumber}`}
-              className={`bible-reader__verse${
+              className={`bible-reader__verse-row${
                 isActive ? " bible-reader__verse--active" : ""
               }`}
             >
-              <span className="bible-reader__verse-number">{verseNumber}</span>
-              {text}
-            </p>
+              <p className="bible-reader__verse">
+                <span className="bible-reader__verse-number">{verseNumber}</span>
+                {text}
+              </p>
+              <button
+                type="button"
+                className="bible-reader__pin"
+                disabled={!hasFocus || isPinned}
+                onClick={() =>
+                  onPinVerse({
+                    id,
+                    reference,
+                    text
+                  })
+                }
+              >
+                {isPinned ? "Pinned" : "Pin"}
+              </button>
+            </div>
           );
         })}
       </div>
