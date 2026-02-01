@@ -1,0 +1,1 @@
+// Renderer state store placeholder.

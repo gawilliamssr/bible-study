@@ -1,0 +1,1 @@
+// Notes data hook placeholder.
