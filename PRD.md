@@ -141,6 +141,22 @@ Create an advanced, offline-first Bible study application that bridges the gap b
 - Share topical studies as export files
 - Templates for common study topics
 
+### 5. Knowledge Graph Visualization
+**Priority: P2 (Nice to Have)**
+
+#### 5.1 Interactive Graph View
+- Visual, interactive web of connections between different data types
+- Force-directed graph visualization showing nodes and edges
+- Nodes represent: Verses, Tags, Notes, Sermons, and People/Authors
+- Edges represent: References, Links, Shared Tags, Authorship
+
+#### 5.2 Exploration & Discovery
+- Click a node (e.g., tag "Grace") to reveal all connected items
+- Filter graph by node type (e.g., "Show only Verses and Sermons")
+- Zoom and pan capabilities for large datasets
+- "Focus mode" to center on a specific node and its immediate neighbors
+- Quick navigation: double-click a node to open it in the main reader/editor
+
 ---
 
 ## Technical Architecture

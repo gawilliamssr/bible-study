@@ -1,4 +1,4 @@
-export type NavView = "bible" | "notes" | "sermons" | "plans" | "journal";
+export type NavView = "bible" | "notes" | "sermons" | "plans" | "journal" | "graph";
 
 type SidebarProps = {
   activeView: NavView;
@@ -10,7 +10,8 @@ const navItems: { id: NavView; label: string }[] = [
   { id: "notes", label: "Notes" },
   { id: "sermons", label: "Sermons" },
   { id: "plans", label: "Plans" },
-  { id: "journal", label: "Journal" }
+  { id: "journal", label: "Journal" },
+  { id: "graph", label: "Graph" }
 ];
 
 const recentItems = [
