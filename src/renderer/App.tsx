@@ -16,6 +16,7 @@ type PinnedVerse = {
 const App = () => {
   const [activeView, setActiveView] = useState<NavView>("bible");
   const [studyFocus, setStudyFocus] = useState("");
+  const [studyNotes, setStudyNotes] = useState("");
   const [pinnedVerses, setPinnedVerses] = useState<PinnedVerse[]>([]);
 
   const pinnedVerseIds = useMemo(
@@ -58,6 +59,8 @@ const App = () => {
         <StudyCollection
           focus={studyFocus}
           onFocusChange={setStudyFocus}
+          notes={studyNotes}
+          onNotesChange={setStudyNotes}
           pinnedVerses={pinnedVerses}
           onRemoveVerse={handleRemoveVerse}
         />
