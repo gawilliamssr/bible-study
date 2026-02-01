@@ -4,6 +4,7 @@ import NoteEditor from "./components/NoteEditor";
 import SermonPlayer from "./components/SermonPlayer";
 import ReadingPlan from "./components/ReadingPlan";
 import Journal from "./components/Journal";
+import KnowledgeGraph from "./components/KnowledgeGraph";
 import Sidebar, { NavView } from "./components/Sidebar";
 
 const App = () => {
@@ -26,6 +27,10 @@ const App = () => {
       return <Journal />;
     }
 
+    if (activeView === "graph") {
+      return <KnowledgeGraph />;
+    }
+
     return <BibleReader />;
   };
 
@@ -40,6 +45,7 @@ const App = () => {
             {activeView === "sermons" && "Sermons"}
             {activeView === "plans" && "Plans"}
             {activeView === "journal" && "Journal"}
+            {activeView === "graph" && "Knowledge Graph"}
           </h2>
         </header>
         <section className="app-content">{renderContent()}</section>
