@@ -2,13 +2,13 @@
 
 ## Executive Summary
 
-A desktop application for personal Bible study that combines traditional Bible reading with modern sermon integration capabilities. The app enables users to study Scripture with multiple translations, take notes, organize sermons from YouTube, and create personalized study plans—all stored locally without requiring cloud accounts.
+A desktop application for personal Bible study that combines traditional Bible reading with modern sermon integration capabilities. The app enables users to study Scripture with multiple translations, take notes, optionally organize sermons from YouTube, and create personalized study plans—all stored locally without requiring cloud accounts.
 
 ---
 
 ## Product Vision
 
-Create an advanced, offline-first Bible study application that bridges the gap between traditional Bible study methods and modern digital sermon content, providing a unified workspace for deep Scripture engagement.
+Create an advanced, offline-first Bible study application that bridges the gap between traditional Bible study methods and modern digital sermon content, providing a unified workspace for deep Scripture engagement. Sermon integration should be optional so users can keep a purely offline, text-focused workflow.
 
 ---
 
@@ -16,7 +16,7 @@ Create an advanced, offline-first Bible study application that bridges the gap b
 
 ### Primary User: Dedicated Bible Student
 - Studies the Bible regularly (3-5 times per week)
-- Watches sermons and teaching videos on YouTube
+- Watches sermons and teaching videos on YouTube (optional)
 - Takes extensive notes during study and sermon viewing
 - Values privacy and offline access
 - Wants to organize study materials systematically
@@ -78,8 +78,10 @@ Create an advanced, offline-first Bible study application that bridges the gap b
 - Reflective writing space for insights and prayers
 - Search journal by date, verse reference, or keyword
 
-### 3. YouTube Sermon Integration
+### 3. YouTube Sermon Integration (Optional)
 **Priority: P0 (Must Have)**
+
+**Optional module**: Users can disable or skip sermon features entirely and still have a complete Bible reading + notes experience. When disabled, sermon UI, data, and API calls are suppressed.
 
 #### 3.1 Sermon Library Management
 - Add YouTube videos by URL or video ID
@@ -167,10 +169,11 @@ Create an advanced, offline-first Bible study application that bridges the gap b
 - **Bible.org NET API**
 - **Offline option**: Download JSON/XML Bible files and bundle with app
 
-#### YouTube Integration
-- **YouTube IFrame Player API**: Embed and control video playback
-- **YouTube Data API v3**: Fetch video metadata (title, thumbnail, channel)
+#### YouTube Integration (Optional)
+- **YouTube IFrame Player API**: Embed and control video playback (only when sermon features are enabled)
+- **YouTube Data API v3**: Fetch video metadata (title, thumbnail, channel) on-demand
 - **No authentication required** for public video playback
+- **Optional**: App must remain fully functional without any YouTube usage
 
 ### Data Models
 
@@ -530,7 +533,8 @@ bible-study/
    - Edit note → Verify changes persist after restart
    - Export notes to PDF → Verify formatting
 
-3. **Sermon Integration Flow**:
+3. **Sermon Integration Flow (Optional)**:
+   - Enable sermon features in settings (if disabled by default)
    - Add YouTube sermon URL → Verify metadata loads
    - Link sermon to Romans 8:28 → Play sermon → Take timestamped note
    - Click timestamp → Verify video jumps to correct time
@@ -544,7 +548,7 @@ bible-study/
    - Skip a day → Verify catch-up mode suggests missed reading
 
 5. **Data Persistence**:
-   - Create notes, highlights, sermons → Close app → Reopen
+   - Create notes, highlights, sermons (if enabled) → Close app → Reopen
    - Verify all data persists correctly
    - Test on fresh install with data migration
 
