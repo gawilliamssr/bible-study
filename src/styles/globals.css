@@ -1032,3 +1032,55 @@ body {
   font-style: italic;
   color: #b9b3a5;
 }
+
+.notes-panel__title-input {
+  width: 100%;
+  background: #1b1b24;
+  border: 1px solid #2f2f3d;
+  border-radius: 10px;
+  color: #f5f1e8;
+  padding: 12px;
+  font-family: inherit;
+  font-size: 1.1em;
+  margin-bottom: 10px;
+}
+
+.notes-panel__title-input:focus-visible {
+  outline: 2px solid rgba(230, 199, 138, 0.5);
+  outline-offset: 2px;
+  border-color: #e6c78a;
+}
+
+.notes-panel__actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.notes-panel__save {
+  background: #e6c78a;
+  border: 1px solid #e6c78a;
+  color: #17171d;
+  padding: 8px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.notes-panel__save:hover {
+  filter: brightness(1.05);
+}
+
+.notes-panel__new {
+  background: transparent;
+  border: 1px solid #353546;
+  color: #f5f1e8;
+  padding: 8px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.notes-panel__new:hover {
+  border-color: #e6c78a;
+  color: #e6c78a;
+}
