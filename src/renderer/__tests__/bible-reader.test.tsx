@@ -27,12 +27,29 @@ describe("BibleReader", () => {
   };
 
   beforeEach(() => {
-    const mockFetch = vi.fn(async () => ({
-      ok: true,
-      json: async () => mockBible
-    }));
+    class MockWorker {
+      onmessage: ((event: MessageEvent) => void) | null = null;
+      onerror: ((event: ErrorEvent) => void) | null = null;
 
-    vi.stubGlobal("fetch", mockFetch as unknown as typeof fetch);
+      constructor(stringUrl: string | URL, options?: WorkerOptions) {}
+
+      postMessage(message: any) {
+        if (message === "load") {
+          setTimeout(() => {
+            if (this.onmessage) {
+              this.onmessage({
+                data: { type: "success", data: mockBible }
+              } as MessageEvent);
+            }
+          }, 0);
+        }
+      }
+
+      terminate() {}
+    }
+
+    vi.stubGlobal("Worker", MockWorker);
+    Element.prototype.scrollIntoView = vi.fn();
   });
 
   afterEach(() => {
@@ -41,7 +58,13 @@ describe("BibleReader", () => {
 
   it("renders chapter data and responds to dropdown navigation", async () => {
     const user = userEvent.setup();
-    render(<BibleReader />);
+    render(
+      <BibleReader
+        focusLabel=""
+        onPinVerse={vi.fn()}
+        pinnedVerseIds={new Set()}
+      />
+    );
 
     expect(await screen.findByText("Genesis 1 (KJV)")).toBeInTheDocument();
     expect(

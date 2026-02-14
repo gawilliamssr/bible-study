@@ -1,17 +1,5 @@
 import { useEffect, useState } from "react";
-
-type BibleBook = {
-  name: string;
-  abbrev?: string;
-  chapters: string[][];
-};
-
-type BibleData = {
-  translation: string;
-  books: BibleBook[];
-};
-
-type BiblePayload = BibleData | BibleBook[];
+import { BibleData } from "../lib/bible-utils";
 
 type PinnedVerse = {
   id: string;
@@ -23,20 +11,6 @@ type BibleReaderProps = {
   focusLabel: string;
   onPinVerse: (verse: PinnedVerse) => void;
   pinnedVerseIds: Set<string>;
-};
-
-const normalizeBibleData = (payload: BiblePayload): BibleData => {
-  if (Array.isArray(payload)) {
-    return {
-      translation: "KJV",
-      books: payload
-    };
-  }
-
-  return {
-    translation: payload.translation ?? "KJV",
-    books: payload.books ?? []
-  };
 };
 
 const BibleReader = ({
@@ -51,24 +25,29 @@ const BibleReader = ({
   const [selectedVerse, setSelectedVerse] = useState(1);
 
   useEffect(() => {
-    const loadChapter = async () => {
-      try {
-        const response = await fetch("/bible-kjv.json");
-        if (!response.ok) {
-          throw new Error("Unable to load Bible data.");
-        }
-        const payload = (await response.json()) as BiblePayload;
-        const data = normalizeBibleData(payload);
-        if (!data.books?.length) {
-          throw new Error("Bible dataset is missing book content.");
-        }
-        setBible(data);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "Unknown error");
+    const worker = new Worker(
+      new URL("../workers/bible.worker.ts", import.meta.url),
+      { type: "module" }
+    );
+
+    worker.postMessage("load");
+
+    worker.onmessage = (event) => {
+      const { type, data, error } = event.data;
+      if (type === "success") {
+        setBible(data as BibleData);
+      } else if (type === "error") {
+        setError(error);
       }
     };
 
-    loadChapter();
+    worker.onerror = (err) => {
+      setError("Worker error: " + err.message);
+    };
+
+    return () => {
+      worker.terminate();
+    };
   }, []);
 
   const currentBook = bible?.books[selectedBookIndex];
