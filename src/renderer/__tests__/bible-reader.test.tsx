@@ -41,7 +41,13 @@ describe("BibleReader", () => {
 
   it("renders chapter data and responds to dropdown navigation", async () => {
     const user = userEvent.setup();
-    render(<BibleReader />);
+    render(
+      <BibleReader
+        focusLabel=""
+        onPinVerse={() => {}}
+        pinnedVerseIds={new Set()}
+      />
+    );
 
     expect(await screen.findByText("Genesis 1 (KJV)")).toBeInTheDocument();
     expect(
