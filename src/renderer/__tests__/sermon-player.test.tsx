@@ -24,7 +24,7 @@ describe("SermonPlayer", () => {
     // Check recent list
     expect(screen.getByRole("heading", { name: "Recent Sermons" })).toBeInTheDocument();
     expect(screen.getByText(/Romans 8:28/)).toBeInTheDocument();
-    expect(screen.getByText(/John 3/)).toBeInTheDocument();
+    expect(screen.getByText("John 3 · “Born Again”")).toBeInTheDocument();
 
     // Check empty state
     // Note: Currently the component renders both recent items and the empty state message.

@@ -1,17 +1,5 @@
 import { useEffect, useState } from "react";
-
-type BibleBook = {
-  name: string;
-  abbrev?: string;
-  chapters: string[][];
-};
-
-type BibleData = {
-  translation: string;
-  books: BibleBook[];
-};
-
-type BiblePayload = BibleData | BibleBook[];
+import { useBible } from "../hooks/useBible";
 
 type PinnedVerse = {
   id: string;
@@ -25,51 +13,15 @@ type BibleReaderProps = {
   pinnedVerseIds: Set<string>;
 };
 
-const normalizeBibleData = (payload: BiblePayload): BibleData => {
-  if (Array.isArray(payload)) {
-    return {
-      translation: "KJV",
-      books: payload
-    };
-  }
-
-  return {
-    translation: payload.translation ?? "KJV",
-    books: payload.books ?? []
-  };
-};
-
 const BibleReader = ({
   focusLabel,
   onPinVerse,
   pinnedVerseIds
 }: BibleReaderProps) => {
-  const [bible, setBible] = useState<BibleData | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const { bible, loading, error } = useBible();
   const [selectedBookIndex, setSelectedBookIndex] = useState(0);
   const [selectedChapterIndex, setSelectedChapterIndex] = useState(0);
   const [selectedVerse, setSelectedVerse] = useState(1);
-
-  useEffect(() => {
-    const loadChapter = async () => {
-      try {
-        const response = await fetch("/bible-kjv.json");
-        if (!response.ok) {
-          throw new Error("Unable to load Bible data.");
-        }
-        const payload = (await response.json()) as BiblePayload;
-        const data = normalizeBibleData(payload);
-        if (!data.books?.length) {
-          throw new Error("Bible dataset is missing book content.");
-        }
-        setBible(data);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "Unknown error");
-      }
-    };
-
-    loadChapter();
-  }, []);
 
   const currentBook = bible?.books[selectedBookIndex];
   const chapterCount = currentBook?.chapters.length ?? 0;
@@ -101,12 +53,16 @@ const BibleReader = ({
     verseElement?.scrollIntoView?.({ block: "center", behavior: "smooth" });
   }, [bible, selectedVerse, selectedChapterIndex, selectedBookIndex, verseCount]);
 
+  if (loading) {
+    return <p className="bible-reader__loading">Loading passage…</p>;
+  }
+
   if (error) {
     return <p className="bible-reader__error">{error}</p>;
   }
 
   if (!bible) {
-    return <p className="bible-reader__loading">Loading passage…</p>;
+    return <p className="bible-reader__error">No Bible data available.</p>;
   }
 
   return (
